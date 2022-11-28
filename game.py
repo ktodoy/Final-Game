@@ -14,11 +14,8 @@ class DaBabyKart():
         self.road = Road()
         self.car = DaBaby()
 
-    def play_music(self):
-        pygame.mixer.Sound.play(self.bop)
-
     def run_game(self):
-        self.play_music()
+        pygame.mixer.Sound.play(self.bop)
         self.screen.fill((33, 191, 143))
 
         for x in range(0, self.screen_rect.width, 64):
