@@ -2,6 +2,8 @@ import pygame
 import sys
 from dababy import DaBaby
 from road import Road
+#from smoothie import Smoothie
+from stopwatch import Stopwatch
 
 class DaBabyKart():
 
@@ -13,6 +15,8 @@ class DaBabyKart():
         self.bop = pygame.mixer.Sound('sounds/bop.mp3')
         self.road = Road()
         self.car = DaBaby(self)
+        #self.smoothie = Smoothie(self)
+        self.stopwatch = Stopwatch(self)
 
     def run_game(self):
         while True:
@@ -21,6 +25,7 @@ class DaBabyKart():
             self.car.update()
             self.car.blit_car()
             self.update_screen()
+            self.stopwatch.display_clock()
 
     def play_music(self):
         pygame.mixer.Sound.play(self.bop)
