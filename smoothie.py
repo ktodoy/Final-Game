@@ -1,5 +1,6 @@
 import pygame
 import random
+from stopwatch import Stopwatch
 
 class Smoothie:
 
@@ -9,10 +10,24 @@ class Smoothie:
         self.rect = self.image.get_rect()
         self.screen = dbkart.screen
         self.screen_rect = dbkart.screen.get_rect()
+        self.x = float(self.rect.x)
+        self.stopwatch = Stopwatch(self)
+
+        self.rect.x = 1280
+        self.rect.y = float(random.randint(186, 490))
+
+        self.moving_left = True
+
+    def move_smoothie(self):
+        if self.moving_left == True:
+            self.rect.x -= 4
+
+        if self.rect.x == -80:
+            self.rect.x = 1280
+            self.rect.y = float(random.randint(186, 490))
+
+    def blit_smoothie(self):
+        self.move_smoothie()
+        self.screen.blit(self.image, self.rect)
 
 
-        def
-            self.rect.x = random.randint(1280, )
-            self.rect.y = random.randint(186,490)
-
-            self.x = float(self.rect.x)

@@ -2,7 +2,7 @@ import pygame
 import sys
 from dababy import DaBaby
 from road import Road
-#from smoothie import Smoothie
+from smoothie import Smoothie
 from stopwatch import Stopwatch
 
 class DaBabyKart():
@@ -15,17 +15,16 @@ class DaBabyKart():
         self.bop = pygame.mixer.Sound('sounds/bop.mp3')
         self.road = Road()
         self.car = DaBaby(self)
-        #self.smoothie = Smoothie(self)
+        self.smoothie = Smoothie(self)
         self.stopwatch = Stopwatch(self)
 
     def run_game(self):
         while True:
-            self.play_music()
             self.check_events()
             self.car.update()
             self.car.blit_car()
             self.update_screen()
-            self.stopwatch.display_clock()
+            self.play_music()
 
     def play_music(self):
         pygame.mixer.Sound.play(self.bop)
@@ -48,13 +47,15 @@ class DaBabyKart():
 
     def update_screen(self):
         self.screen.fill((33, 191, 143))
+        self.stopwatch.display_clock()
         for x in range(0, self.screen_rect.width, 64):
             self.screen.blit(self.road.image, (x, self.screen_rect.height / 2 - 180))
         self.car.blit_car()
+        self.smoothie.blit_smoothie()
         pygame.display.flip()
 
 db = DaBabyKart()
 db.run_game()
 
-#logo = pygame.image.load("images/kart.png")
+#logo = pygame.image.load("images/bkart.png")
 #logo.set_colorkey((255,255,255))
