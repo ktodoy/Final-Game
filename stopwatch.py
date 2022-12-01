@@ -21,6 +21,6 @@ class Stopwatch:
         if self.seconds > 60:
             self.minutes += 1
             self.seconds -= 60
-        self.milliseconds += self.clock.tick_busy_loop(60)
+        self.milliseconds += self.clock.tick_busy_loop(360) # have to keep this number high in order for game to function at a proper frame rate
         self.timer = self.font.render("{}:{}:{}".format(self.minutes, self.seconds, self.milliseconds), True, (0, 0, 0))
         self.screen.blit(self.timer, (64, 64))

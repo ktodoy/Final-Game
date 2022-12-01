@@ -11,7 +11,6 @@ class Smoothie:
         self.screen = dbkart.screen
         self.screen_rect = dbkart.screen.get_rect()
         self.x = float(self.rect.x)
-        self.stopwatch = Stopwatch(self)
 
         self.rect.x = 1280
         self.rect.y = float(random.randint(186, 490))

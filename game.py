@@ -17,6 +17,13 @@ class DaBabyKart():
         self.car = DaBaby(self)
         self.smoothie = Smoothie(self)
         self.stopwatch = Stopwatch(self)
+        self.clock = pygame.time.Clock()
+        self.minutes = 0
+        self.seconds = 0
+        self.milliseconds = 0
+        self.bg = pygame.surface.Surface((160, 40)).convert()
+        self.bg.fill((33, 191, 143))
+        self.font = pygame.font.SysFont("dababy_font.ttf", 25)
 
     def run_game(self):
         while True:
@@ -47,11 +54,11 @@ class DaBabyKart():
 
     def update_screen(self):
         self.screen.fill((33, 191, 143))
-        self.stopwatch.display_clock()
         for x in range(0, self.screen_rect.width, 64):
             self.screen.blit(self.road.image, (x, self.screen_rect.height / 2 - 180))
         self.car.blit_car()
         self.smoothie.blit_smoothie()
+        self.stopwatch.display_clock()
         pygame.display.flip()
 
 db = DaBabyKart()
