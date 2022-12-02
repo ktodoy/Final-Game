@@ -9,6 +9,7 @@ class DaBaby:
         self.screen = dbkart.screen
         self.screen_rect = dbkart.screen.get_rect()
         self.rect.center = dbkart.screen_rect.center
+        self.health = 3
 
         self.y = float(self.rect.y)
         self.rect.x = 100
@@ -18,11 +19,11 @@ class DaBaby:
     def update(self):
         if self.moving_up:
             self.rect.y -= 1
-            if self.rect.y <= 186:
+            if self.rect.y <= self.screen_rect.height / 2 - 180:
                 self.moving_up = False
         if self.moving_down:
             self.rect.y += 1
-            if self.rect.y >= 490:
+            if self.rect.y >= self.screen_rect.height / 2 + 134:
                 self.moving_down = False
 
     def blit_car(self):

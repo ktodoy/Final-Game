@@ -6,14 +6,13 @@ class Potion:
 
     def __init__(self, dbkart):
         self.image = pygame.image.load('images/potion.png')
-        self.image.set_colorkey((255, 255, 255))
         self.rect = self.image.get_rect()
         self.screen = dbkart.screen
         self.screen_rect = dbkart.screen.get_rect()
         self.stopwatch = Stopwatch(self)
 
-        self.rect.x = 1280
-        self.rect.y = float(random.randint(186, 490))
+        self.rect.x = dbkart.screen_rect.width + 20
+        self.rect.y = float(random.randint(self.screen_rect.height / 2 - 180, self.screen_rect.height / 2 + 134))
 
         self.moving_left = True
 
