@@ -10,7 +10,7 @@ class Stopwatch:
         self.milliseconds = 0
         self.bg = pygame.surface.Surface((160, 40)).convert()
         self.bg.fill((33, 191, 143))
-        self.font = pygame.font.SysFont("dababy_font.ttf", 25)
+        self.font = pygame.font.SysFont("Carre-JWja.ttf", 60)
 
     def display_clock(self):
         if self.milliseconds > 1000:
@@ -23,4 +23,4 @@ class Stopwatch:
             self.seconds -= 60
         self.milliseconds += self.clock.tick_busy_loop(360) # have to keep this number high in order for game to function at a proper frame rate
         self.timer = self.font.render("{}:{}:{}".format(self.minutes, self.seconds, self.milliseconds), True, (0, 0, 0))
-        self.screen.blit(self.timer, (64, 64))
+        self.screen.blit(self.timer, (128, 72))
