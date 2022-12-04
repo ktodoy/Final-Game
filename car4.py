@@ -1,10 +1,11 @@
 import pygame
 import random
+from pygame.sprite import Sprite
 
-class Car4():
+class Car4(Sprite):
 
     def __init__(self, dbkart):
-
+        super().__init__()
         self.image = pygame.image.load('images/police_car.png')
         self.rect = self.image.get_rect()
         self.screen = dbkart.screen

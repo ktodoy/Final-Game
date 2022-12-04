@@ -17,6 +17,7 @@ class DaBabyKart():
         self.screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
         self.screen_rect = self.screen.get_rect()
         self.bop = pygame.mixer.Sound('sounds/bop.mp3')
+        self.ha = pygame.mixer.Sound('sounds/ha.mp3')
         self.road = Road()
         self.dababy = DaBaby(self)
         self.potion = Potion(self)
@@ -30,6 +31,8 @@ class DaBabyKart():
         self.car3_collision = pygame.sprite.collide_rect(self.dababy, self.car3)
         self.car4_collision = pygame.sprite.collide_rect(self.dababy, self.car4)
         self.potion_collision = pygame.sprite.collide_rect(self.dababy, self.potion)
+
+        self.blit_car1 = True
 
     def run_game(self):
         while True:
@@ -68,21 +71,25 @@ class DaBabyKart():
         self.screen.blit(self.dababy.image, (self.screen_rect.width / 7 * 6, self.screen_rect.width/15))
         self.screen.blit(self.dababy.image, (self.screen_rect.width / 7 * 6 - 64, self.screen_rect.width/15))
         self.screen.blit(self.dababy.image, (self.screen_rect.width / 7 * 6 - 128, self.screen_rect.width/15))
-        self.car1.move_car1(self)
-        self.car1.blit_car1()
+
+        if self.blit_car1 == True:
+            self.car1.move_car1(self)
+            self.car1.blit_car1()
+        
         self.car2.move_car2(self)
         self.car2.blit_car2()
+
         if self.stopwatch.seconds >= 10:
             self.car3.move_car3(self)
             self.car3.blit_car3()
         elif self.stopwatch.minutes >= 1:
-            self.car4.move_car4(self)
+            self.car3.move_car3(self)
             self.car3.blit_car3()
 
         if self.stopwatch.seconds >= 30:
             self.car4.blit_car4()
         elif self.stopwatch.minutes >= 1:
-            self.car3.blit_car3()
+            self.car4.blit_car4()
 
         if self.stopwatch.seconds >= 30:
             self.potion.blit_potion()
@@ -94,11 +101,12 @@ class DaBabyKart():
                 self.potion.rect.x = self.screen_rect.width + 20
 
         self.dababy.blit_car()
+
         pygame.display.flip()
 
     def check_collision(self):
         if self.car1_collision:
-            self.dababy.health -= 1
+            self.blit_car1 = False
         elif self.car2_collision:
             self.dababy.health -= 1
         elif self.car3_collision:

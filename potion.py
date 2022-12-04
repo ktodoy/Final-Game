@@ -1,10 +1,12 @@
 import pygame
 import random
 from stopwatch import Stopwatch
+from pygame.sprite import Sprite
 
-class Potion:
+class Potion(Sprite):
 
     def __init__(self, dbkart):
+        super().__init__()
         self.image = pygame.image.load('images/potion.png')
         self.rect = self.image.get_rect()
         self.screen = dbkart.screen

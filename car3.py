@@ -1,11 +1,11 @@
 import pygame
 import random
-from stopwatch import Stopwatch
+from pygame.sprite import Sprite
 
-class Car3():
+class Car3(Sprite):
 
     def __init__(self, dbkart):
-
+        super().__init__()
         self.image = pygame.image.load('images/police_car.png')
         self.rect = self.image.get_rect()
         self.screen = dbkart.screen
