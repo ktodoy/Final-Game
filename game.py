@@ -62,22 +62,14 @@ class DaBabyKart():
                 if event.key == pygame.K_DOWN:
                     self.dababy.moving_down = False
 
-    def update_screen(self):
-        self.screen.fill((33, 191, 143))
-        for x in range(0, self.screen_rect.width, 64):
-            self.screen.blit(self.road.image, (x, self.screen_rect.height / 2 - 180))
-        self.dababy.blit_car()
-        self.stopwatch.display_clock(self)
-        self.screen.blit(self.dababy.image, (self.screen_rect.width / 7 * 6, self.screen_rect.width/15))
-        self.screen.blit(self.dababy.image, (self.screen_rect.width / 7 * 6 - 64, self.screen_rect.width/15))
-        self.screen.blit(self.dababy.image, (self.screen_rect.width / 7 * 6 - 128, self.screen_rect.width/15))
-
+    def draw_cars(self):
         if self.blit_car1 == True:
             self.car1.move_car1(self)
             self.car1.blit_car1()
-        
-        self.car2.move_car2(self)
-        self.car2.blit_car2()
+
+        if self.blit_car1 == True:
+            self.car2.move_car2(self)
+            self.car2.blit_car2()
 
         if self.stopwatch.seconds >= 10:
             self.car3.move_car3(self)
@@ -91,6 +83,7 @@ class DaBabyKart():
         elif self.stopwatch.minutes >= 1:
             self.car4.blit_car4()
 
+    def draw_potion(self):
         if self.stopwatch.seconds >= 30:
             self.potion.blit_potion()
             if self.stopwatch.seconds % 30 == 0:
@@ -99,7 +92,18 @@ class DaBabyKart():
             self.potion.blit_potion()
             if self.stopwatch.seconds % 30 == 0:
                 self.potion.rect.x = self.screen_rect.width + 20
+    def update_screen(self):
+        self.screen.fill((33, 191, 143))
+        for x in range(0, self.screen_rect.width, 64):
+            self.screen.blit(self.road.image, (x, self.screen_rect.height / 2 - 180))
+        self.dababy.blit_car()
+        self.stopwatch.display_clock(self)
+        self.screen.blit(self.dababy.image, (self.screen_rect.width / 7 * 6, self.screen_rect.width/15))
+        self.screen.blit(self.dababy.image, (self.screen_rect.width / 7 * 6 - 64, self.screen_rect.width/15))
+        self.screen.blit(self.dababy.image, (self.screen_rect.width / 7 * 6 - 128, self.screen_rect.width/15))
 
+        self.draw_cars()
+        self.draw_potion()
         self.dababy.blit_car()
 
         pygame.display.flip()
