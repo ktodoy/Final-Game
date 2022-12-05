@@ -20,7 +20,7 @@ class Car4(Sprite):
         if self.moving_left == True:
             self.rect.x -= 4
 
-        if self.rect.x <= -80:
+        if self.rect.x <= -3000:
             self.rect.x = dbkart.screen_rect.width + 20
             self.rect.y = float(random.randint(self.screen_rect.height / 2 - 180, self.screen_rect.height / 2 + 134))
 

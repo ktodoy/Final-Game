@@ -11,7 +11,7 @@ class DaBaby(Sprite):
         self.screen = dbkart.screen
         self.screen_rect = dbkart.screen.get_rect()
         self.rect.center = dbkart.screen_rect.center
-        self.health = 3
+        self.health = 200
 
         self.y = float(self.rect.y)
         self.rect.x = 100

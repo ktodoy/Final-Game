@@ -18,7 +18,7 @@ class DaBabyKart():
         self.screen_rect = self.screen.get_rect()
         self.bop = pygame.mixer.Sound('sounds/bop.mp3')
         self.ha = pygame.mixer.Sound('sounds/ha.mp3')
-        self.road = Road()
+        self.road = Road(self)
         self.dababy = DaBaby(self)
         self.potion = Potion(self)
         self.stopwatch = Stopwatch(self)
@@ -26,13 +26,12 @@ class DaBabyKart():
         self.car2 = Car2(self)
         self.car3 = Car3(self)
         self.car4 = Car4(self)
-        self.car1_collision = pygame.sprite.collide_rect(self.dababy, self.car1)
-        self.car2_collision = pygame.sprite.collide_rect(self.dababy, self.car2)
-        self.car3_collision = pygame.sprite.collide_rect(self.dababy, self.car3)
-        self.car4_collision = pygame.sprite.collide_rect(self.dababy, self.car4)
-        self.potion_collision = pygame.sprite.collide_rect(self.dababy, self.potion)
 
         self.blit_car1 = True
+        self.blit_car2 = True
+        self.blit_car3 = True
+        self.blit_car4 = True
+        self.blit_potion = True
 
     def run_game(self):
         while True:
@@ -62,64 +61,98 @@ class DaBabyKart():
                 if event.key == pygame.K_DOWN:
                     self.dababy.moving_down = False
 
-    def draw_cars(self):
-        if self.blit_car1 == True:
+    def draw_car12(self):
+        if self.blit_car1:
             self.car1.move_car1(self)
             self.car1.blit_car1()
 
-        if self.blit_car1 == True:
+        if self.blit_car2:
             self.car2.move_car2(self)
             self.car2.blit_car2()
 
-        if self.stopwatch.seconds >= 10:
-            self.car3.move_car3(self)
-            self.car3.blit_car3()
-        elif self.stopwatch.minutes >= 1:
-            self.car3.move_car3(self)
-            self.car3.blit_car3()
+    def draw_car3(self):
+        if self.blit_car3:
+            if self.stopwatch.seconds >= 10:
+                self.car3.move_car3(self)
+                self.car3.blit_car3()
+            elif self.stopwatch.minutes >= 1:
+                self.car3.move_car3(self)
+                self.car3.blit_car3()
 
-        if self.stopwatch.seconds >= 30:
-            self.car4.blit_car4()
-        elif self.stopwatch.minutes >= 1:
-            self.car4.blit_car4()
+    def draw_car4(self):
+        if self.blit_car4:
+            if self.stopwatch.seconds >= 30:
+                self.car4.move_car4(self)
+                self.car4.blit_car4()
+            elif self.stopwatch.minutes >= 1:
+                self.car4.move_car4(self)
+                self.car4.blit_car4()
 
     def draw_potion(self):
-        if self.stopwatch.seconds >= 30:
-            self.potion.blit_potion()
-            if self.stopwatch.seconds % 30 == 0:
-                self.potion.rect.x = self.screen_rect.width + 20
-        elif self.stopwatch.minutes >= 1:
-            self.potion.blit_potion()
-            if self.stopwatch.seconds % 30 == 0:
-                self.potion.rect.x = self.screen_rect.width + 20
+        if self.blit_potion:
+            if self.stopwatch.seconds >= 30:
+                self.potion.blit_potion()
+                if self.stopwatch.seconds % 30 == 0:
+                    self.potion.rect.x = self.screen_rect.width + 20
+            elif self.stopwatch.minutes >= 1:
+                self.potion.blit_potion()
+                if self.stopwatch.seconds % 30 == 0:
+                    self.potion.rect.x = self.screen_rect.width + 20
+
+    def check_lives(self):
+        if self.dababy.health <= -24700:
+            
+        elif self.dababy.health <= -16400: #by printing the health on collision, helath decreases by -8300 with every collision. since it starts at 200, these values are necessary for proper display of lives
+            self.screen.blit(self.dababy.image, (self.screen_rect.width / 7 * 6 - 128, self.screen_rect.width / 15))
+        elif self.dababy.health <= -8100:
+            self.screen.blit(self.dababy.image, (self.screen_rect.width / 7 * 6 - 64, self.screen_rect.width / 15))
+            self.screen.blit(self.dababy.image, (self.screen_rect.width / 7 * 6 - 128, self.screen_rect.width / 15))
+        elif self.dababy.health <= 200:
+            self.screen.blit(self.dababy.image, (self.screen_rect.width / 7 * 6, self.screen_rect.width / 15))
+            self.screen.blit(self.dababy.image, (self.screen_rect.width / 7 * 6 - 64, self.screen_rect.width / 15))
+            self.screen.blit(self.dababy.image, (self.screen_rect.width / 7 * 6 - 128, self.screen_rect.width / 15))
+
+
+
+        #elif self.dababy.health == 0:
+
+
     def update_screen(self):
         self.screen.fill((33, 191, 143))
         for x in range(0, self.screen_rect.width, 64):
             self.screen.blit(self.road.image, (x, self.screen_rect.height / 2 - 180))
+        #self.road.blit_line()
         self.dababy.blit_car()
         self.stopwatch.display_clock(self)
-        self.screen.blit(self.dababy.image, (self.screen_rect.width / 7 * 6, self.screen_rect.width/15))
-        self.screen.blit(self.dababy.image, (self.screen_rect.width / 7 * 6 - 64, self.screen_rect.width/15))
-        self.screen.blit(self.dababy.image, (self.screen_rect.width / 7 * 6 - 128, self.screen_rect.width/15))
-
-        self.draw_cars()
+        self.draw_car12()
+        self.draw_car3()
+        self.draw_car4()
         self.draw_potion()
+        self.check_lives()
         self.dababy.blit_car()
 
         pygame.display.flip()
 
     def check_collision(self):
-        if self.car1_collision:
-            self.blit_car1 = False
-        elif self.car2_collision:
-            self.dababy.health -= 1
-        elif self.car3_collision:
-            self.dababy.health -= 1
-        elif self.car4_collision:
-            self.dababy.health -= 1
+        if pygame.sprite.collide_rect(self.dababy, self.car1):
+            self.dababy.health -= 100
+            print(self.dababy.health)
+            pygame.mixer.Channel(1).play(self.ha)
+        elif pygame.sprite.collide_rect(self.dababy, self.car2):
+            self.dababy.health -= 100
+            pygame.mixer.Channel(1).play(self.ha)
+        elif pygame.sprite.collide_rect(self.dababy, self.car3):
+            self.dababy.health -= 100
+            pygame.mixer.Channel(1).play(self.ha)
+        elif pygame.sprite.collide_rect(self.dababy, self.car4):
+            self.dababy.health -= 100
+            pygame.mixer.Channel(1).play(self.ha)
+        elif pygame.sprite.collide_rect(self.dababy, self.potion):
+            self.blit_potion = False
 
-db = DaBabyKart()
-db.run_game()
+
+#db = DaBabyKart()
+#db.run_game()
 
 #logo = pygame.image.load("images/bkart.png")
 #logo.set_colorkey((255,255,255))
