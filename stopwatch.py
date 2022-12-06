@@ -6,6 +6,7 @@ class Stopwatch:
         self.screen = dbkart.screen
         self.screen_rect = dbkart.screen.get_rect()
         self.clock = pygame.time.Clock()
+        #self.exact_time = self.clock.get_time()
         self.minutes = 0
         self.seconds = 0
         self.milliseconds = 0

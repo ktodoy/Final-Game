@@ -6,7 +6,7 @@ class DaBaby(Sprite):
     def __init__(self, dbkart):
         super().__init__()
         self.image = pygame.image.load('images/dababy.png')
-        self.image.set_colorkey((255, 255, 255))
+        self.image.set_colorkey((255, 255, 255)) #Ethan helped
         self.rect = self.image.get_rect()
         self.screen = dbkart.screen
         self.screen_rect = dbkart.screen.get_rect()

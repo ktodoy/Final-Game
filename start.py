@@ -11,6 +11,7 @@ class Start():
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         self.screen_rect = self.screen.get_rect()
         self.image = pygame.image.load('images/kart.png')
+        self.image_rect = self.image.get_rect()
         self.button_1 = pygame.Rect(self.screen_rect.width / 2 - 100, self.screen_rect.height / 2 - 70, 200, 100)
         self.button_2 = pygame.Rect(self.screen_rect.width / 2 - 100, self.screen_rect.height / 2 + 70, 200, 100)
         self.dbkart = DaBabyKart()
@@ -19,7 +20,8 @@ class Start():
 
     def run_start(self):
         while True:
-            self.dbkart.play_music()
+            pygame.mixer.music.load('sounds/bop.mp3')
+            pygame.mixer.music.play(-1) # plays infinitely
             self.check_events()
             self.display_start()
 
@@ -28,7 +30,7 @@ class Start():
             self.screen.fill((33, 191, 143))
             for x in range(0, self.screen_rect.width, 64):
                 self.screen.blit(self.road.image, (x, self.screen_rect.height / 2 - 180))
-            self.screen.blit(self.image, (self.screen_rect.width / 10 , self.screen_rect.height / 2 - 270 ))
+            self.screen.blit(self.image, (self.screen_rect.width / 2 - 512 , self.screen_rect.height / 2 - 270 ))
             pygame.draw.rect(self.screen, (0, 0, 0), self.button_1)
             pygame.draw.rect(self.screen, (0, 0, 0), self.button_2)
             if self.button_1.collidepoint(pygame.mouse.get_pos()): #Josh saved me
