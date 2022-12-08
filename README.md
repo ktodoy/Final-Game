@@ -11,3 +11,19 @@ Also appearing at the 30 second mark is the 'DaBaby Potion' - if you have seen t
 All the other code in this game essentially has to do with logic and calling certain methods/modules at the right time. The stopwatch is simple in functioning, for it increases milliseconds until 1000, adds 1 to the seconds value, then resets to 0. Once there is 60 seconds, it will essential function the same with minutes.
 
 That is truly all the useful explanation I have to offer without going into boring detail. So, with this, I wish you all happy playing!!!
+
+# Table of Contents:
+
+- start.py - code for start screen (where running of game actually starts)
+- game.py - code for functioning of main game
+- leaderboard.py - code for screen which displays time
+- dababy.py - code for the actual 'DaBabyKart'
+- car1-4.py - code for police cars
+- potion.py - code for potion
+- road.py - code for road
+- stopwatch.py - code for running clock
+- healthbar.py - code for healthbar
+
+# Sources:
+
+- images: https://kenney.nl/assets/road-textures
