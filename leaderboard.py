@@ -1,7 +1,7 @@
 import pygame
 import sys
 from stopwatch import Stopwatch
-from healthbar import HealthBar
+
 
 class Leaderboard():
 
@@ -12,12 +12,15 @@ class Leaderboard():
         self.stopwatch = Stopwatch(self)
         self.font1 = pygame.font.SysFont('chalkduster.ttf', 150)
         self.font2 = pygame.font.SysFont('chalkduster.ttf', 35)
-        self.score_text = self.font1.render('Your Score:', True, (0,0,0))
+        self.score_text = self.font1.render('Your Time:', True, (0,0,0))
         self.play_again = self.font2.render('Play Again', True, (255, 255, 255))
         self.button = pygame.Rect(self.screen_rect.width / 2 - 100, self.screen_rect.height / 2 + 180, 200, 100)
-        self.healthbar = HealthBar(self)
-        self.healthbar.health == 0
         self.click = False
+
+        self.final_minute = []
+        self.final_second = []
+        self.final_millisecond = []
+        self.final_time = []
 
     def run_leaderboard(self):
         while True:
@@ -26,13 +29,10 @@ class Leaderboard():
 
     def display_leaderboard(self):
         self.screen.fill((33, 191, 143))
-        self.screen.blit(self.score_text, (self.screen_rect.width / 2 - 300 , self.screen_rect.height / 2 - 300))
-        from game import DaBabyKart # to avoid circular import
-        self.dbkart = DaBabyKart()
-        print(self.dbkart.final_time)
-        #self.final_time = f'{self.dbkart.final_time[0]} : {self.dbkart.final_time[1]} : {self.dbkart.final_time[2]}'
-        #self.time = self.font1.render(f'{self.final_time}', True, (0,0,0))
-        #self.screen.blit(self.time, (self.screen_rect.width / 2 - 300 , self.screen_rect.height / 2 - 100))
+        self.screen.blit(self.score_text, (self.screen_rect.width / 2 - 270 , self.screen_rect.height / 2 - 300))
+        self.your_time = f'{self.final_time[0]} : {self.final_time[1]} : {self.final_time[2]}'
+        self.time = self.font1.render(f'{self.your_time}', True, (0,0,0))
+        self.screen.blit(self.time, (self.screen_rect.width / 2 - 245 , self.screen_rect.height / 2 - 100))
         pygame.draw.rect(self.screen, (0, 0, 0), self.button)
         self.screen.blit(self.play_again, (self.screen_rect.width / 2 - 60, self.screen_rect.height / 2 + 220))
         if self.button.collidepoint(pygame.mouse.get_pos()):  # Josh saved me
@@ -51,3 +51,16 @@ class Leaderboard():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     self.click = True
+
+    def get_final_time(self):
+        self.final_minute.append(self.stopwatch.minutes)
+        self.final_second.append(self.stopwatch.seconds)
+        self.final_millisecond.append(self.stopwatch.milliseconds)
+
+        self.final_time.append(self.final_minute[0])
+        self.final_time.append(self.final_second[0])
+        self.final_time.append(self.final_millisecond[0])
+        print(self.final_time)
+
+    def run_clock(self):
+        self.stopwatch.display_clock(self)

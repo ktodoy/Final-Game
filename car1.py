@@ -14,7 +14,7 @@ class Car1(Sprite):
         self.moving_left = True
 
         self.rect.x = dbkart.screen_rect.width + 20
-        self.rect.y = float(random.randint(self.screen_rect.height / 2 - 180, self.screen_rect.height / 2 + 134))
+        self.rect.y = float(random.randint(self.screen_rect.height / 2 - 180, self.screen_rect.height / 2 + 134)) #Moises helped
 
     def move_car1(self, dbkart):
         if self.moving_left == True:

@@ -1,5 +1,6 @@
 import pygame
 import sys
+import time
 from dababy import DaBaby
 from road import Road
 from potion import Potion
@@ -44,7 +45,6 @@ class DaBabyKart():
             self.dababy.blit_car()
             self.check_collision()
             self.update_screen()
-            self.get_final_time()
             self.display_leaderboard()
 
     def check_events(self):
@@ -104,6 +104,7 @@ class DaBabyKart():
         self.road.blit_line()
         self.dababy.blit_car()
         self.stopwatch.display_clock(self)
+        self.leaderboard.run_clock()
         self.draw_car12()
         self.draw_car3()
         self.draw_car4()
@@ -140,17 +141,8 @@ class DaBabyKart():
             pygame.mixer.Sound.play(self.lets_go)
             pygame.mixer.music.unpause()
 
-    def get_final_time(self):
-        if self.healthbar.health == 0:
-            self.final_minute.append(self.stopwatch.minutes)
-            self.final_second.append(self.stopwatch.seconds)
-            self.final_millisecond.append(self.stopwatch.milliseconds)
-
     def display_leaderboard(self):
         if self.healthbar.health == 0:
-            self.final_time.append(self.final_minute[0])
-            self.final_time.append(self.final_second[0])
-            self.final_time.append(self.final_millisecond[0])
-            print(self.final_time)
-
+            self.leaderboard.get_final_time()
+            time.sleep(.2)
             self.leaderboard.run_leaderboard()

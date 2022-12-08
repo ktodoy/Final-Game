@@ -12,12 +12,11 @@ class Start():
         self.screen_rect = self.screen.get_rect()
         self.image = pygame.image.load('images/dbkart.png')
         self.image_rect = self.image.get_rect()
-        self.button_1 = pygame.Rect(self.screen_rect.width / 2 - 100, self.screen_rect.height / 2 - 70, 200, 100)
+        self.button_1 = pygame.Rect(self.screen_rect.width / 2 - 100, self.screen_rect.height / 2 - 70, 200, 100) #Ethan helped with buttons
         self.button_2 = pygame.Rect(self.screen_rect.width / 2 - 100, self.screen_rect.height / 2 + 70, 200, 100)
         self.font1 = pygame.font.SysFont('chalkduster.ttf', 75)
-        self.font2 = pygame.font.SysFont('chalkduster.ttf', 35)
         self.play = self.font1.render('Play', True, (255, 255, 255))
-        self.ldboard = self.font2.render('Leaderboard', True, (255,255,255))
+        self.quit = self.font1.render('Quit', True, (255,255,255))
         self.dbkart = DaBabyKart()
         self.leaderboard = Leaderboard()
         self.road = Road(self)
@@ -39,7 +38,7 @@ class Start():
             pygame.draw.rect(self.screen, (0, 0, 0), self.button_1)
             pygame.draw.rect(self.screen, (0, 0, 0), self.button_2)
             self.screen.blit(self.play, (self.screen_rect.width / 2 - 55, self.screen_rect.height / 2 - 45))
-            self.screen.blit(self.ldboard, (self.screen_rect.width / 2 - 75, self.screen_rect.height / 2 + 107))
+            self.screen.blit(self.quit, (self.screen_rect.width / 2 - 60, self.screen_rect.height / 2 + 100))
             if self.button_1.collidepoint(pygame.mouse.get_pos()): #Josh saved me
                 pygame.draw.rect(self.screen, (255, 255, 255), self.button_1)
                 if self.click:
@@ -47,7 +46,7 @@ class Start():
             if self.button_2.collidepoint(pygame.mouse.get_pos()): #Josh saved me
                 pygame.draw.rect(self.screen, (255, 255, 255), self.button_2)
                 if self.click:
-                    self.leaderboard.run_leaderboard()
+                    sys.exit()
 
             pygame.display.flip()
 
@@ -60,6 +59,6 @@ class Start():
                 if event.key == pygame.K_ESCAPE:
                     sys.exit()
 
-st = Start()
-st.run_start()
+db = Start()
+db.run_start()
 
