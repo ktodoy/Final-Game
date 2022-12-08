@@ -14,7 +14,7 @@ class HealthBar():
 
     def do_damage(self):
         if self.health > 0:
-            self.health -= 1
+            self.health -= 2
         if self.health <= 0:
             self.health = 0
 
